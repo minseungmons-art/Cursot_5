@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    color: white;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    z-index: 1001;
+    font-family: 'Playfair Display', serif !important;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 0.7;
+}
+
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto; 
+    min-height: 350px;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-overlay.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    text-align: center;
+    width: 100%;
+}
+
+.mobile-nav-links li {
+    margin: 30px 0;
+}
+
+.mobile-link {
+    text-decoration: none;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 500;
+    font-family: 'Pretendard', sans-serif;
+    display: block;
+}
+
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+}
+
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.0s ease-in-out;
+}
+
+.bg-image.active {
+    opacity: 0.5;
+}
+
+.content-container {
+    position: relative;
+    z-index: 1;
+}
+
+.scroll-section {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-family: 'Playfair Display', serif !important;
+}
+
+.sub-text {
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.text-box {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 40px;
+    border-radius: 15px;
+    max-width: 600px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.text-box h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.text-box p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    word-break: keep-all;
+}
+
+.align-right {
+    align-self: center; 
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    font-size: 0.9rem;
+    animation: bounce 2s infinite;
+    opacity: 0.7;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* 박스 내부 이미지용 스타일 (지금은 안 쓰지만 남겨둬도 무방함) */
+.content-image {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    margin-top: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+    .main-title {
+        font-size: 3rem;
+    }
+    .text-box {
+        padding: 30px;
+    }
+}

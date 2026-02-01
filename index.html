@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMSTD - My Story</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        body, p, a, .text-box h2, .text-box p {
+            font-family: 'Pretendard', 'Montserrat', sans-serif !important;
+        }
+        .sub-text {
+            font-family: 'Gowun Batang', serif !important;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+        }
+        .main-title, .logo {
+            font-family: 'Playfair Display', serif !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">IMSTD</div>
+        <ul class="nav-links">
+            <li><a href="#home">홈</a></li>
+            <li><a href="#about">소개</a></li>
+            <li><a href="#hobby">취미</a></li>
+            <li><a href="#music">관심사</a></li>
+        </ul>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <div class="mobile-overlay" id="mobileMenu">
+        <div class="close-btn" id="closeMenuBtn">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home" class="mobile-link">홈</a></li>
+            <li><a href="#about" class="mobile-link">소개</a></li>
+            <li><a href="#hobby" class="mobile-link">취미</a></li>
+            <li><a href="#music" class="mobile-link">관심사</a></li>
+        </ul>
+    </div>
+
+    <div class="background-container">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2670&auto=format&fit=crop" alt="Coding" class="bg-image active">
+        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop" alt="Work" class="bg-image">
+        <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2670&auto=format&fit=crop" alt="Golf" class="bg-image">
+        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=2670&auto=format&fit=crop" alt="Concert Mic" class="bg-image">
+    </div>
+
+    <main class="content-container">
+        
+        <section id="home" class="scroll-section header-section">
+            <h1 class="main-title">HI,<br>I AM DEV.</h1>
+            <p class="sub-text">제 웹사이트에 오신 것을 환영합니다.</p>
+            <div class="scroll-indicator">↓ 아래로 내려보세요 ↓</div>
+        </section>
+
+        <section id="about" class="scroll-section content-section" data-bg-index="1">
+            <div class="text-box">
+                <h2>01. 나는 누구인가요?</h2>
+                <p>
+                    저는 이제 막 걸음마를 뗀 <strong>초보 개발자</strong>입니다.<br>
+                    아직 부족한 점이 많지만, 매일매일 배우며 성장하고 있습니다.<br>
+                    어제보다 더 나은 코드를 위해 노력합니다.<br>
+                    <strong>"오늘부터 시작합니다 (I'M Starting ToDay)."</strong>
+                </p>
+            </div>
+        </section>
+
+        <section id="hobby" class="scroll-section content-section" data-bg-index="2">
+             <div class="text-box align-right">
+                <h2>02. 취미</h2>
+                <p>
+                    저는 <strong>골프</strong>를 정말 좋아합니다.<br>
+                    푸른 잔디 위를 걸으면 복잡했던 머릿속이 맑아집니다.<br>
+                    공에 집중해서 스윙하는 그 순간,<br>
+                    새로운 에너지를 얻습니다.
+                </p>
+            </div>
+        </section>
+
+        <section id="music" class="scroll-section content-section" data-bg-index="3">
+             <div class="text-box">
+                <h2>03. 관심사</h2>
+                <p>
+                    음악 듣는 것을 좋아합니다.<br>
+                    가장 좋아하는 가수는 <strong>엠씨더맥스(이수)</strong>입니다.<br>
+                    호소력 짙고 파워풀한 목소리는<br>
+                    언제 들어도 가슴을 울리고 큰 힘이 됩니다.
+                </p>
+            </div>
+        </section>
+
+         <section class="scroll-section content-section final-section" data-bg-index="0">
+             <div class="text-box center">
+                <h2>감사합니다.</h2>
+                <p>멋진 결과물을 함께 만들어가고 싶습니다.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
