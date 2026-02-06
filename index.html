@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
     
     <style>
-        body, p, a, .text-box h2, .text-box p {
+        body, p, a, .text-box h2, .text-box p, input, textarea, button {
             font-family: 'Pretendard', 'Montserrat', sans-serif !important;
         }
         .sub-text {
@@ -27,13 +27,15 @@
 <body>
 
     <header class="navbar">
-        <div class="logo">PLNXO</div>
+        <div class="logo">Plan X OutPut</div>
         <ul class="nav-links">
             <li><a href="#home">홈</a></li>
             <li><a href="#about">소개</a></li>
             <li><a href="#hobby">취미</a></li>
             <li><a href="#music">관심사</a></li>
-            <li><a href="#contact">문의</a></li> </ul>
+            <li><a href="#" class="gallery-trigger">갤러리</a></li>
+            <li><a href="#" class="contact-trigger">문의</a></li>
+        </ul>
         <div class="hamburger">
             <i class="fa-solid fa-bars"></i>
         </div>
@@ -48,7 +50,8 @@
             <li><a href="#about" class="mobile-link">소개</a></li>
             <li><a href="#hobby" class="mobile-link">취미</a></li>
             <li><a href="#music" class="mobile-link">관심사</a></li>
-            <li><a href="#contact" class="mobile-link">문의</a></li>
+            <li><a href="#" class="mobile-link gallery-trigger">갤러리</a></li>
+            <li><a href="#" class="mobile-link contact-trigger">문의</a></li>
         </ul>
     </div>
 
@@ -103,25 +106,7 @@
             </div>
         </section>
 
-        <section id="contact" class="scroll-section content-section" style="background: rgba(0,0,0,0.6);">
-            <div class="text-box">
-                <h2>Contact Me</h2>
-                <p>저에게 메시지를 남겨주세요!</p>
-                
-                <form name="contact" method="POST" data-netlify="true" style="margin-top: 20px;">
-                    <p>
-                        <input type="text" name="name" placeholder="이름" style="padding: 10px; width: 100%; margin-bottom: 10px; border-radius: 5px; border: none;">
-                    </p>
-                    <p>
-                        <textarea name="message" placeholder="할 말을 적어주세요" style="padding: 10px; width: 100%; height: 100px; margin-bottom: 10px; border-radius: 5px; border: none;"></textarea>
-                    </p>
-                    <p>
-                        <button type="submit" style="padding: 10px 20px; background: white; color: black; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">보내기</button>
-                    </p>
-                </form>
-            </div>
-        </section>
-        <section class="scroll-section content-section final-section" data-bg-index="0">
+         <section class="scroll-section content-section final-section" data-bg-index="0">
              <div class="text-box center">
                 <h2>감사합니다.</h2>
                 <p>멋진 결과물을 함께 만들어가고 싶습니다.</p>
@@ -129,6 +114,54 @@
         </section>
 
     </main>
+
+    <div id="galleryModal" class="modal-overlay">
+        <div class="modal-content modal-content-large">
+            <div class="close-modal-btn" id="closeGalleryBtn"><i class="fa-solid fa-xmark"></i></div>
+            <h3 style="margin-bottom: 20px;">My Gallery</h3>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="nyang.jpeg" alt="Cheeze Cat"></div>
+                <div class="gallery-item"><img src="ggam.jpeg" alt="Black Cat"></div>
+                <div class="gallery-item"><img src="apple.jpeg" alt="Green Parrat"></div>
+                <div class="gallery-item"><img src="mango.jpeg" alt="Yellow Parrat"></div>
+                <div class="gallery-item"><img src="apple2.jpeg" alt="2Green Parrat"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contactModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="close-modal-btn" id="closeContactBtn"><i class="fa-solid fa-xmark"></i></div>
+            
+            <div id="formContainer">
+                <h3>Contact Me</h3>
+                <p>저에게 메시지를 남겨주세요!</p>
+                <form id="contactForm" name="contact" method="POST" data-netlify="true" style="margin-top: 20px; text-align: left;">
+                    <input type="hidden" name="form-name" value="contact" />
+                    <p style="margin-bottom: 15px;">
+                        <input type="text" name="name" placeholder="이름" required style="padding: 12px; width: 100%; border-radius: 5px; border: 1px solid #ddd; background: #f9f9f9;">
+                    </p>
+                    <p style="margin-bottom: 15px;">
+                        <textarea name="message" placeholder="할 말을 적어주세요" required style="padding: 12px; width: 100%; height: 120px; border-radius: 5px; border: 1px solid #ddd; background: #f9f9f9; resize: none;"></textarea>
+                    </p>
+                    <p style="text-align: center;">
+                        <button type="submit" style="padding: 12px 30px; background: #000; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%;">보내기</button>
+                    </p>
+                </form>
+            </div>
+
+            <div id="successMessage" style="display: none;">
+                <div class="modal-icon"><i class="fa-solid fa-paper-plane"></i></div>
+                <h3>전송 완료!</h3>
+                <p>소중한 메시지가 전달되었습니다.<br>확인 후 연락드리겠습니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="imageViewer" class="modal-overlay" style="z-index: 999999;">
+        <span class="close-image-btn">&times;</span>
+        <img class="full-image" id="fullImage">
+    </div>
 
     <script src="script.js"></script>
 </body>
