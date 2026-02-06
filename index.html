@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나의 이야기</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        body, p, a, .text-box h2, .text-box p, input, textarea, button {
-            font-family: 'Pretendard', 'Montserrat', sans-serif !important;
-        }
-        .sub-text {
-            font-family: 'Gowun Batang', serif !important;
-            font-size: 1.25rem;
-            letter-spacing: 0.5px;
-        }
-        .main-title, .logo {
-            font-family: 'Playfair Display', serif !important;
-        }
-    </style>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>나의 이야기</title>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+        
+        <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+        
+        <style>
+            /* ★ 여기 수정됨: 아이폰용 선명 효과 추가 ★ */
+            body, p, a, .text-box h2, .text-box p, input, textarea, button {
+                font-family: 'Pretendard', 'Montserrat', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
+                -webkit-font-smoothing: antialiased; /* 아이폰에서 글씨 얇고 선명하게 */
+                -moz-osx-font-smoothing: grayscale;
+            }
+            .sub-text {
+                font-family: 'Gowun Batang', serif !important;
+                font-size: 1.25rem;
+                letter-spacing: 0.5px;
+            }
+            .main-title, .logo {
+                font-family: 'Playfair Display', serif !important;
+            }
+        </style>
+    </head>
 <body>
 
     <header class="navbar">
@@ -71,7 +76,7 @@
         </section>
 
         <section id="about" class="scroll-section content-section" data-bg-index="1">
-            <div class="text-box">
+            <div class="text-box reveal">
                 <h2>01. 나는 누구인가요?</h2>
                 <p>
                     저는 이제 막 걸음마를 뗀 <strong>초보 개발자(민승)</strong>입니다.<br>
@@ -83,7 +88,7 @@
         </section>
 
         <section id="hobby" class="scroll-section content-section" data-bg-index="2">
-             <div class="text-box align-right">
+             <div class="text-box align-right reveal">
                 <h2>02. 취미</h2>
                 <p>
                     저는 <strong>골프</strong>를 정말 좋아합니다.<br>
@@ -95,7 +100,7 @@
         </section>
 
         <section id="music" class="scroll-section content-section" data-bg-index="3">
-             <div class="text-box">
+             <div class="text-box reveal">
                 <h2>03. 관심사</h2>
                 <p>
                     음악 듣는 것을 좋아합니다.<br>
@@ -107,7 +112,7 @@
         </section>
 
          <section class="scroll-section content-section final-section" data-bg-index="0">
-             <div class="text-box center">
+             <div class="text-box center reveal">
                 <h2>감사합니다.</h2>
                 <p>멋진 결과물을 함께 만들어가고 싶습니다.</p>
             </div>
@@ -176,3 +181,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+

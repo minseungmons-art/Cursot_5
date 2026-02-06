@@ -1,7 +1,7 @@
-/* --- ★ 핵심 변경 사항: 부드러운 스크롤 추가 ★ --- */
+/* --- ★ 핵심: 부드러운 스크롤 + 여백 설정 ★ --- */
 html {
-    scroll-behavior: smooth; /* 스르륵 움직이게 하는 마법의 코드 */
-    scroll-padding-top: 80px; /* 메뉴바에 가려지지 않게 윗부분 여유 공간 줌 */
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 /* 기본 초기화 */
@@ -164,10 +164,20 @@ body {
 }
 
 .main-title {
-    font-size: 4rem;
+    font-size: 4.5rem;
     line-height: 1.1;
     margin-bottom: 20px;
     font-family: 'Playfair Display', serif !important;
+    color: rgba(255,255,255,0.9); 
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5),
+                 0 0 20px rgba(255, 255, 255, 0.3),
+                 0 0 30px rgba(255, 255, 255, 0.1);
+    animation: glow 3s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px rgba(255,255,255,0.5); }
+    to { text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,255,255,0.6); }
 }
 
 .sub-text {
@@ -175,37 +185,58 @@ body {
     margin-bottom: 40px;
 }
 
+/* --- ★ 업그레이드된 텍스트 박스 (유리 효과 + 애니메이션) ★ --- */
 .text-box {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1); /* 흰색 투명 배경 (더 세련됨) */
     padding: 40px;
-    border-radius: 15px;
+    border-radius: 20px; /* 더 둥글게 */
     max-width: 600px;
     width: 90%;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
+    
+    /* 유리 질감 효과 (Glassmorphism) 핵심 코드 */
+    backdrop-filter: blur(15px); /* 뒤 배경을 흐리게 만듦 */
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 은은한 테두리 */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* 부드러운 그림자 */
+    
+    /* 애니메이션 준비 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
 }
 
+/* 마우스를 올렸을 때 효과 */
+.text-box:hover {
+    transform: translateY(-10px); /* 위로 살짝 둥둥 뜸 */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); /* 그림자가 진해짐 */
+    background: rgba(255, 255, 255, 0.15); /* 배경이 살짝 밝아짐 */
+    border-color: rgba(255, 255, 255, 0.5); /* 테두리가 빛남 */
+}
+
+/* 글씨 스타일 */
 .text-box h2 {
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 20px;
     color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* 글씨 잘 보이게 그림자 */
 }
 
 .text-box p {
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #f0f0f0; /* 완전 흰색보다 눈이 편한 색 */
     word-break: keep-all;
 }
 
 .align-right { align-self: center; }
 .center { align-self: center; }
 
+/* ★ 수정됨: 스크롤 내리면 부드럽게 사라지게 설정 ★ */
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
     font-size: 0.9rem;
     animation: bounce 2s infinite;
     opacity: 0.7;
+    transition: opacity 0.5s ease; /* 부드러운 사라짐 효과 */
 }
 
 @keyframes bounce {
@@ -243,7 +274,7 @@ body {
     filter: brightness(1.1);
 }
 
-/* 팝업창(모달) 공통 스타일 */
+/* 팝업창(모달) 스타일 */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -280,7 +311,6 @@ body {
     overflow-y: auto;
 }
 
-/* 갤러리용 넓은 팝업 */
 .modal-content-large {
     max-width: 900px;
 }
@@ -365,4 +395,27 @@ body {
     .hamburger { display: block; }
     .main-title { font-size: 3rem; }
     .text-box { padding: 30px; }
+}
+
+/* --- ★ 메뉴 활성화(스크롤 스파이) 디자인 수정본 ★ --- */
+.nav-links a.active,
+.mobile-nav-links a.active {
+    font-weight: 800;      /* 글씨를 아주 두껍게 */
+    color: #ffffff;        /* 아주 쨍한 흰색 */
+    opacity: 1;            /* 투명도 없이 선명하게 */
+    
+    transform: scale(1.1); /* 크기를 살짝(10%) 키워서 강조 */
+    
+}
+
+/* --- ★ 애플 스타일: 스크롤 리빌 애니메이션 ★ --- */
+.reveal {
+    opacity: 0; /* 처음엔 안 보임 */
+    transform: translateY(50px); /* 아래로 50px 내려가 있음 */
+    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1); /* 아주 부드럽게 올라옴 (Apple Style) */
+}
+
+.reveal.active {
+    opacity: 1; /* 서서히 보임 */
+    transform: translateY(0); /* 제자리로 돌아옴 */
 }
