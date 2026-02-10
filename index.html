@@ -6,17 +6,18 @@
         <title>나의 이야기</title>
         
         <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-        
         <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        
         <link rel="stylesheet" href="style.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         
         <style>
-            /* ★ 여기 수정됨: 아이폰용 선명 효과 추가 ★ */
             body, p, a, .text-box h2, .text-box p, input, textarea, button {
                 font-family: 'Pretendard', 'Montserrat', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
-                -webkit-font-smoothing: antialiased; /* 아이폰에서 글씨 얇고 선명하게 */
+                -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
             }
             .sub-text {
@@ -124,23 +125,9 @@
         <div class="modal-content modal-content-large">
             <div class="close-modal-btn" id="closeGalleryBtn"><i class="fa-solid fa-xmark"></i></div>
             <h3 style="margin-bottom: 20px;">My Gallery</h3>
+            
             <div class="gallery-grid">
-                <div class="gallery-item"><img src="nyang.jpeg" alt="Cheeze Cat"></div>
-                <div class="gallery-item"><img src="ggam.jpeg" alt="Black Cat"></div>
-                <div class="gallery-item"><img src="apple.jpeg" alt="Green Parrat"></div>
-                <div class="gallery-item"><img src="mango.jpeg" alt="Yellow Parrat"></div>
-                <div class="gallery-item"><img src="apple2.jpeg" alt="2Green Parrat"></div>
-                <div class="gallery-item"><img src="IMG_0495.jpeg"alt="Exercise Parrat"></div>
-                <div class="gallery-item"><img src="IMG_0513.jpeg" alt="More Parrat"></div>
-                <div class="gallery-item"><img src="IMG_0515.jpeg" alt="IMG_0515 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_0627.jpeg" alt="IMG_0516 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_0793.jpeg" alt="IMG_0517 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_1121.jpeg" alt="IMG_0518 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_1154.jpeg" alt="IMG_0519 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_1198.jpeg" alt="IMG_0520 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_1218.jpeg" alt="IMG_0521 Parrat"></div>
-                <div class="gallery-item"><img src="IMG_1219.jpeg" alt="IMG_0522 Parrat"></div>
-            </div>
+                </div>
         </div>
     </div>
 
@@ -181,4 +168,3 @@
     <script src="script.js"></script>
 </body>
 </html>
-
