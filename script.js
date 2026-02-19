@@ -176,13 +176,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const closeContactBtn = document.getElementById('closeContactBtn');
     setupModal(contactBtns, contactModal, closeContactBtn, true);
 
+    // ==========================================
+    // ★ 4. 문의 폼 전송 (Netlify 실제 전송용) ★
+    // ==========================================
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+            e.preventDefault(); // 기본 폼 제출 방지
             
-            // 로컬 테스트용: 진짜 서버로 안 보내고 0.5초 뒤 성공 화면 보여주기
-            setTimeout(() => {
+            const formData = new FormData(contactForm);
+            
+            // Netlify 서버로 데이터 보내기
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                // 성공 시 처리
                 const formContainer = document.getElementById('formContainer');
                 const successMessage = document.getElementById('successMessage');
                 
@@ -190,7 +201,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if(successMessage) successMessage.style.display = 'block';
                 
                 contactForm.reset(); // 폼 초기화
-            }, 500); 
+            })
+            .catch((error) => {
+                // 에러 발생 시 (주로 로컬 호스트에서 테스트할 때 발생)
+                alert('전송 실패! Netlify에 배포된 실제 인터넷 주소에서 테스트해주세요.');
+                console.error('Form submission error:', error);
+            });
         });
     }
 
@@ -202,4 +218,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     document.querySelectorAll('.gallery-item img').forEach(img => addEffectsToImage(img));
-}); // <-- 파일의 맨 마지막은 반드시 이 괄호로 끝나야 합니다!
+});
