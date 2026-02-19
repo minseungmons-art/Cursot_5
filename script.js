@@ -203,7 +203,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 contactForm.reset(); // 폼 초기화
             })
             .catch((error) => {
-                // 에러 발생 시 (주로 로컬 호스트에서 테스트할 때 발생)
+                // 에러 발생 시
                 alert('전송 실패! Netlify에 배포된 실제 인터넷 주소에서 테스트해주세요.');
                 console.error('Form submission error:', error);
             });
