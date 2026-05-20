@@ -409,12 +409,18 @@ body {
 
 body {
     font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-    background-color: #f4f6f8;
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    
+    /* --- 🌟 수정됨: 피카츄 배경 이미지 적용 --- */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                      url('https://upload.wikimedia.org/wikipedia/en/a/a9/Pok%C3%A9mon_Pikachu_art.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 /* 메인 화면 디자인 */
@@ -423,6 +429,13 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    
+    /* --- 🌟 수정됨: 배경 위에서 글자가 잘 보이도록 반투명 상자 효과 추가 --- */
+    background-color: rgba(255, 255, 255, 0.6); 
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
 }
 
 .row {

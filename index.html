@@ -177,8 +177,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>포켓몬스터 블로그</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
     <style>
-        /* CSS 디자인 코드를 HTML 안에 합쳤습니다 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -187,12 +191,41 @@
 
         body {
             font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-            background-color: #f4f6f8;
             color: #333;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            
+            background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), 
+                              url('pikachu.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .logo-box {
+            position: absolute; 
+            top: 30px;          
+            left: 40px;         
+            color: white;       
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); 
+        }
+
+        .logo-box h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 38px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .logo-box p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            opacity: 0.95;
         }
 
         .hashtag-container {
@@ -200,6 +233,11 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            background-color: rgba(255, 255, 255, 0.6); 
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
         }
 
         .row {
@@ -221,38 +259,39 @@
             transition: all 0.2s ease-in-out;
         }
 
+        /* 🌟 수정된 호버(마우스 올렸을 때) 효과 */
         .hashtag:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-            background-color: #4a90e2;
-            color: white;
+            /* 배경색 채우기 삭제하고 언더바(밑줄) 설정 추가 */
+            text-decoration: underline;
+            text-decoration-thickness: 3px; /* 밑줄 두께 살짝 도톰하게 */
+            text-underline-offset: 6px; /* 글자와 밑줄 사이 간격 띄우기 */
         }
     </style>
 </head>
 <body>
 
+    <div class="logo-box">
+        <h1>Pokémon Lover's</h1> 
+        `     <h2>New eXciting Odyssey</h2>
+    </div>
+
     <div class="hashtag-container">
         <div class="row">
-            <a href="post_daily.html" class="hashtag">#X&Y</a>
-            <a href="post_coding.html" class="hashtag">#오메가루비</a>
-            <a href="post_hobby.html" class="hashtag">#썬문</a>
+            <a href="openworld.html" class="hashtag">#오픈월드</a>
+            <a href="battle.html" class="hashtag">#배틀</a>
+            <a href="story.html" class="hashtag">#스토리</a>
         </div>
         <div class="row">
-            <a href="post_food.html" class="hashtag">#유나이티드</a>
-            <a href="post_travel.html" class="hashtag">#DPPT</a>
-            <a href="post_music.html" class="hashtag">#레전드 아르세우스</a>
-            <a href="post_thought.html" class="hashtag">#포켓몬GO</a>
+            <a href="catch.html" class="hashtag">#포획</a>
+            <a href="healing.html" class="hashtag">#힐링</a>
+            <a href="othergames.html" class="hashtag">#이외 게임들</a>
         </div>
     </div>
 
 </body>
 </html>
-
-
-
-
-
-
 
 
 

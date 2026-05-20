@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open World - PLNXO</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif;
+            color: white;
+            background-color: black;
+            
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .background-layers {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; 
+        }
+
+        .bg-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        .bg-slide.active {
+            opacity: 1; 
+        }
+
+        /* 🌟 이미지 파일 확장자를 모두 최신 상태로 맞췄습니다! */
+        .bg-slide.section1 { 
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('arc.jpg'); 
+        }
+        .bg-slide.section2 { 
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('scarlet.png'); 
+        }
+        .bg-slide.section3 { 
+            /* 🌟 ZA 배경은 보내주신 파일명대로 .webp로 수정했습니다 */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('ZA.png'); 
+        }
+
+        nav {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 1000;
+        }
+
+        .back-home {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 30px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .back-home:hover {
+            background: white;
+            color: #4a90e2;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .section {
+            min-height: 100vh; 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .content-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1s ease-out; 
+            position: relative;
+        }
+
+        .content-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-num {
+            font-size: 130px;
+            font-weight: 900;
+            line-height: 0.8;
+            color: rgba(74, 144, 226, 0.3); 
+            margin-bottom: -35px; 
+            z-index: 0;
+        }
+
+        .title {
+            font-size: 60px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            z-index: 1;
+        }
+
+        /* 🌟 기본 박스 디자인 (1번, 3번 섹션용) */
+        .desc {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.15); 
+            padding: 35px 50px;
+            border-radius: 0 40px 0 40px; 
+            border-left: 5px solid #4a90e2; 
+            backdrop-filter: blur(10px);
+            max-width: 750px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            word-break: keep-all; 
+            z-index: 1;
+        }
+
+        /* 🌟 2번째 섹션(스칼렛 바이올렛) 전용 박스 디자인 (첫 번째 사진 참고) */
+        #section2 .desc {
+            background-color: rgba(80, 80, 80, 0.85); /* 불투명한 짙은 회색 바탕 */
+            border-radius: 10px; /* 전체적으로 둥근 사각형 */
+            border-left: 3px solid #64b5f6; /* 밝은 파란색 얇은 테두리 */
+            padding: 40px 60px; /* 위아래 여백을 줘서 넉넉하게 */
+            backdrop-filter: none; /* 흐림 효과 제거 */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* 그림자를 더 진하게 */
+            font-size: 16px; /* 글씨 크기 약간 조절 */
+            color: white;
+        }
+        
+        /* 2번째 섹션의 숫자 색상을 어두운 배경에 맞게 약간 조정 (선택사항) */
+        #section2 .section-num {
+            color: rgba(100, 181, 246, 0.5);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="back-home">BACK TO MAIN</a>
+    </nav>
+
+    <div class="background-layers">
+        <div class="bg-slide section1 active"></div>
+        <div class="bg-slide section2"></div>
+        <div class="bg-slide section3"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="section" id="section1">
+            <div class="content-box show">
+                <div class="section-num">01</div>
+                <h2 class="title">레전드 아르세우스</h2>
+                <div class="desc">
+                    포켓몬스터 오픈월드의 첫 번째 혁명.<br>
+                    눈앞에 보이는 모든 산과 바다를 직접 탐험할 수 있는 자유도를 경험해보세요.
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section2">
+            <div class="content-box">
+                <div class="section-num">02</div>
+                <h2 class="title">스칼렛 바이올렛</h2>
+                <div class="desc">
+                    시간과 날씨에 따라 변화하는 생태계.<br>
+                    단순한 몬스터가 아닌, 살아있는 포켓몬들의 숨결을 느낄 수 있는 공간입니다.
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section3">
+            <div class="content-box">
+                <div class="section-num">03</div>
+                <h2 class="title">레전ZA</h2>
+                <div class="desc">
+                    정해진 길은 없습니다. 당신이 걷는 모든 발자국이 곧 이야기가 됩니다.<br>
+                    PLNXO가 제안하는 오픈월드 공략과 함께 나만의 여정을 완성하세요.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll('.content-box');
+        window.addEventListener('scroll', checkBoxes);
+        checkBoxes(); 
+
+        function checkBoxes() {
+            const triggerBottom = window.innerHeight * 0.85;
+            boxes.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                if(boxTop < triggerBottom) {
+                    box.classList.add('show');
+                } else {
+                    box.classList.remove('show');
+                }
+            });
+        }
+
+        const sections = document.querySelectorAll('.section');
+        const bgSlides = document.querySelectorAll('.bg-slide');
+        
+        window.addEventListener('scroll', checkBackgrounds);
+        checkBackgrounds(); 
+
+        function checkBackgrounds() {
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    const sectionId = section.id; 
+                    
+                    bgSlides.forEach(slide => slide.classList.remove('active'));
+                    
+                    const activeBg = document.querySelector(`.bg-slide.${sectionId}`);
+                    if (activeBg) {
+                        activeBg.classList.add('active');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
