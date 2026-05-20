@@ -1,10 +1,8 @@
-/* --- ★ 핵심: 부드러운 스크롤 + 여백 설정 ★ --- */
-html {
+/* html {
     scroll-behavior: smooth;
     scroll-padding-top: 80px;
 }
 
-/* 기본 초기화 */
 * {
     margin: 0;
     padding: 0;
@@ -18,7 +16,6 @@ body {
     background-color: #000;
 }
 
-/* 네비게이션 바 */
 .navbar {
     position: fixed;
     top: 0;
@@ -65,7 +62,6 @@ body {
     z-index: 1001;
 }
 
-/* 모바일 메뉴 */
 .mobile-overlay {
     position: fixed;
     top: 0;
@@ -121,7 +117,6 @@ body {
     color: white;
 }
 
-/* 배경 이미지 */
 .background-container {
     position: fixed;
     top: 0;
@@ -146,7 +141,6 @@ body {
     opacity: 0.5;
 }
 
-/* 메인 콘텐츠 */
 .content-container {
     position: relative;
     z-index: 1;
@@ -185,58 +179,50 @@ body {
     margin-bottom: 40px;
 }
 
-/* --- ★ 업그레이드된 텍스트 박스 (유리 효과 + 애니메이션) ★ --- */
 .text-box {
-    background: rgba(255, 255, 255, 0.1); /* 흰색 투명 배경 (더 세련됨) */
+    background: rgba(255, 255, 255, 0.1);
     padding: 40px;
-    border-radius: 20px; /* 더 둥글게 */
+    border-radius: 20px;
     max-width: 600px;
     width: 90%;
-    
-    /* 유리 질감 효과 (Glassmorphism) 핵심 코드 */
-    backdrop-filter: blur(15px); /* 뒤 배경을 흐리게 만듦 */
+    backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2); /* 은은한 테두리 */
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); /* 부드러운 그림자 */
-    
-    /* 애니메이션 준비 */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
 }
 
-/* 마우스를 올렸을 때 효과 */
 .text-box:hover {
-    transform: translateY(-10px); /* 위로 살짝 둥둥 뜸 */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5); /* 그림자가 진해짐 */
-    background: rgba(255, 255, 255, 0.15); /* 배경이 살짝 밝아짐 */
-    border-color: rgba(255, 255, 255, 0.5); /* 테두리가 빛남 */
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* 글씨 스타일 */
 .text-box h2 {
     font-size: 2.2rem;
     margin-bottom: 20px;
     color: #fff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* 글씨 잘 보이게 그림자 */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .text-box p {
     font-size: 1.15rem;
     line-height: 1.8;
-    color: #f0f0f0; /* 완전 흰색보다 눈이 편한 색 */
+    color: #f0f0f0;
     word-break: keep-all;
 }
 
 .align-right { align-self: center; }
 .center { align-self: center; }
 
-/* ★ 수정됨: 스크롤 내리면 부드럽게 사라지게 설정 ★ */
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
     font-size: 0.9rem;
     animation: bounce 2s infinite;
     opacity: 0.7;
-    transition: opacity 0.5s ease; /* 부드러운 사라짐 효과 */
+    transition: opacity 0.5s ease;
 }
 
 @keyframes bounce {
@@ -244,7 +230,6 @@ body {
     50% { transform: translateY(-10px); }
 }
 
-/* 갤러리 그리드 */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -274,7 +259,6 @@ body {
     filter: brightness(1.1);
 }
 
-/* 팝업창(모달) 스타일 */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -356,7 +340,6 @@ body {
     to { opacity: 1; }
 }
 
-/* 사진 확대 보기 스타일 */
 #imageViewer {
     background-color: rgba(0, 0, 0, 0.95);
 }
@@ -397,31 +380,111 @@ body {
     .text-box { padding: 30px; }
 }
 
-/* --- ★ 메뉴 활성화(스크롤 스파이) 디자인 수정본 ★ --- */
 .nav-links a.active,
 .mobile-nav-links a.active {
-    font-weight: 800;      /* 글씨를 아주 두껍게 */
-    color: #ffffff;        /* 아주 쨍한 흰색 */
-    opacity: 1;            /* 투명도 없이 선명하게 */
-    
-    transform: scale(1.1); /* 크기를 살짝(10%) 키워서 강조 */
-    
+    font-weight: 800;
+    color: #ffffff;
+    opacity: 1;
+    transform: scale(1.1);
 }
 
-/* --- ★ 애플 스타일: 스크롤 리빌 애니메이션 ★ --- */
 .reveal {
-    opacity: 0; /* 처음엔 안 보임 */
-    transform: translateY(50px); /* 아래로 50px 내려가 있음 */
-    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1); /* 아주 부드럽게 올라옴 (Apple Style) */
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .reveal.active {
-    opacity: 1; /* 서서히 보임 */
-    transform: translateY(0); /* 제자리로 돌아옴 */
+    opacity: 1;
+    transform: translateY(0);
+} */
+
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
+body {
+    font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-/* --- style.css 맨 아래에 추가하세요 --- */
+/* 메인 화면 디자인 */
+.hashtag-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
 
-/* ▼▼▼▼▼ 이 부분 전체 삭제 ▼▼▼▼▼ */
+.row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
 
+/* <a> 태그 디자인 수정 (밑줄 제거) */
+.hashtag {
+    text-decoration: none; /* 밑줄 제거 */
+    display: inline-block; /* 버튼 형태로 만들기 위해 필요 */
+    font-size: 24px;
+    font-weight: bold;
+    color: #4a90e2;
+    background-color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.hashtag:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+    background-color: #4a90e2;
+    color: white;
+}
+
+/* 게시물 화면 디자인 */
+.post-content-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+    min-height: 400px;
+}
+
+#back-btn {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    display: inline-block;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+#back-btn:hover {
+    color: #000;
+}
+
+#post-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+#post-content {
+    font-size: 18px;
+    line-height: 1.6;
+}
