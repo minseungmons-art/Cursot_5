@@ -1,176 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>나의 이야기</title>
-        
-        <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Montserrat:wght@300;500;700&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css" />
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        
-        <link rel="stylesheet" href="style.css">
-
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        
-        <style>
-            body, p, a, .text-box h2, .text-box p, input, textarea, button {
-                font-family: 'Pretendard', 'Montserrat', -apple-system, BlinkMacSystemFont, system-ui, sans-serif !important;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-            }
-            .sub-text {
-                font-family: 'Gowun Batang', serif !important;
-                font-size: 1.25rem;
-                letter-spacing: 0.5px;
-            }
-            .main-title, .logo {
-                font-family: 'Playfair Display', serif !important;
-            }
-        </style>
-    </head>
-<body>
-
-    <header class="navbar">
-        <div class="logo">Plan X OutPut</div>
-        <ul class="nav-links">
-            <li><a href="#home">홈</a></li>
-            <li><a href="#about">소개</a></li>
-            <li><a href="#hobby">취미</a></li>
-            <li><a href="#" class="gallery-trigger">갤러리</a></li>
-            <li><a href="#" class="contact-trigger">문의</a></li>
-        </ul>
-        <div class="hamburger">
-            <i class="fa-solid fa-bars"></i>
-        </div>
-    </header>
-
-    <div class="mobile-overlay" id="mobileMenu">
-        <div class="close-btn" id="closeMenuBtn">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-        <ul class="mobile-nav-links">
-            <li><a href="#home" class="mobile-link">홈</a></li>
-            <li><a href="#about" class="mobile-link">소개</a></li>
-            <li><a href="#hobby" class="mobile-link">취미</a></li>
-            <li><a href="#" class="mobile-link gallery-trigger">갤러리</a></li>
-            <li><a href="#" class="mobile-link contact-trigger">문의</a></li>
-        </ul>
-    </div>
-
-    <div class="background-container">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=2670&auto=format&fit=crop" alt="Coding" class="bg-image active">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2670&auto=format&fit=crop" alt="Work" class="bg-image">
-        <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?q=80&w=2670&auto=format&fit=crop" alt="Golf" class="bg-image">
-        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop" alt="Programmer Coding" class="bg-image">
-    </div>
-
-    <main class="content-container">
-        
-        <section id="home" class="scroll-section header-section">
-            <h1 class="main-title">HI,<br>I AM <br>ROOKIE DEVELOPER. </h1>
-            <p class="sub-text">제 웹사이트에 오신 것을 환영합니다.</p>
-            <div class="scroll-indicator">↓ 아래로 내려보세요 ↓</div>
-        </section>
-
-        <section id="about" class="scroll-section content-section" data-bg-index="1">
-            <div class="text-box reveal">
-                <h2>01. 나는 누구인가요?</h2>
-                <p>
-                    저는 이제 막 걸음마를 뗀 <strong>초보 개발자(민승)</strong>입니다.<br>
-                    아직 부족한 점이 많지만, 매일매일 배우며 성장하고 있습니다.<br>
-                    어제보다 더 나은 코드를 위해 노력합니다.<br>
-                    <strong>"오늘부터 시작합니다 (I'M Starting ToDay)."</strong>
-                </p>
-            </div>
-        </section>
-
-        <section id="hobby" class="scroll-section content-section" data-bg-index="2">
-            <div class="text-box align-right reveal">
-               <h2>02. 취미</h2>
-               <p>
-                   저는 <strong>골프</strong>를 정말 좋아합니다.<br>
-                   푸른 잔디 위를 걸으면 복잡했던 머릿속이 맑아집니다.<br>
-                   공에 집중해서 스윙하는 그 순간,<br>
-                   새로운 에너지를 얻습니다.
-               </p>
-           </div>
-       </section>
-
-        <section id="coding" class="scroll-section content-section" data-bg-index="3">
-             <div class="text-box reveal">
-                <h2>취미(1)</h2>
-                <p>
-                    디지털 세상을 창조하는 코딩에 몰입합니다.<br>
-                    복잡한 문제를 해결하고 아이디어를 현실로 구현하는<br>
-                    과정에서 끝없는 성취감을 느낍니다.<br>
-                    코드는 저의 새로운 언어이자, 미래를 그리는 도구입니다.
-                </p>
-            </div>
-        </section>
-
-         <section class="scroll-section content-section final-section" data-bg-index="0">
-             <div class="text-box center reveal">
-                <h2>감사합니다.</h2>
-                <p>멋진 결과물을 함께 만들어가고 싶습니다.</p>
-            </div>
-        </section>
-
-    </main>
-
-    <div id="galleryModal" class="modal-overlay">
-        <div class="modal-content modal-content-large">
-            <div class="close-modal-btn" id="closeGalleryBtn"><i class="fa-solid fa-xmark"></i></div>
-            <h3 style="margin-bottom: 20px;">My Gallery</h3>
-            
-            <div class="gallery-grid">
-                </div>
-        </div>
-    </div>
-
-    <div id="contactModal" class="modal-overlay">
-        <div class="modal-content">
-            <div class="close-modal-btn" id="closeContactBtn"><i class="fa-solid fa-xmark"></i></div>
-            
-            <div id="formContainer">
-                <h3>Contact Me</h3>
-                <p>저에게 메시지를 남겨주세요!</p>
-                <form id="contactForm" name="contact" method="POST" data-netlify="true" style="margin-top: 20px; text-align: left;">
-                    <input type="hidden" name="form-name" value="contact" />
-                    <p style="margin-bottom: 15px;">
-                        <input type="text" name="name" placeholder="이름" required style="padding: 12px; width: 100%; border-radius: 5px; border: 1px solid #ddd; background: #f9f9f9;">
-                    </p>
-                    <p style="margin-bottom: 15px;">
-                        <textarea name="message" placeholder="할 말을 적어주세요" required style="padding: 12px; width: 100%; height: 120px; border-radius: 5px; border: 1px solid #ddd; background: #f9f9f9; resize: none;"></textarea>
-                    </p>
-                    <p style="text-align: center;">
-                        <button type="submit" style="padding: 12px 30px; background: #000; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; width: 100%;">보내기</button>
-                    </p>
-                </form>
-            </div>
-
-            <div id="successMessage" style="display: none;">
-                <div class="modal-icon"><i class="fa-solid fa-paper-plane"></i></div>
-                <h3>전송 완료!</h3>
-                <p>소중한 메시지가 전달되었습니다.<br>확인 후 연락드리겠습니다.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="imageViewer" class="modal-overlay" style="z-index: 999999;">
-        <span class="close-image-btn">&times;</span>
-        <img class="full-image" id="fullImage">
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html> -->
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -220,6 +47,7 @@
             margin-bottom: 5px;
         }
 
+        /* 🌟 기존 h2로 되어있던 부분을 p 태그로 맞추어 스타일이 정상 적용되도록 수정 */
         .logo-box p {
             font-family: 'Poppins', sans-serif;
             font-size: 16px;
@@ -259,14 +87,46 @@
             transition: all 0.2s ease-in-out;
         }
 
-        /* 🌟 수정된 호버(마우스 올렸을 때) 효과 */
         .hashtag:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-            /* 배경색 채우기 삭제하고 언더바(밑줄) 설정 추가 */
             text-decoration: underline;
-            text-decoration-thickness: 3px; /* 밑줄 두께 살짝 도톰하게 */
-            text-underline-offset: 6px; /* 글자와 밑줄 사이 간격 띄우기 */
+            text-decoration-thickness: 3px; 
+            text-underline-offset: 6px; 
+        }
+
+        /* =========================================
+           📱 모바일 반응형 디자인 (화면 너비 768px 이하) 
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            .logo-box {
+                top: 20px;
+                left: 20px;
+            }
+
+            .logo-box h1 {
+                font-size: 26px; /* 모바일용 로고 제목 크기 축소 */
+            }
+
+            .logo-box p {
+                font-size: 13px; /* 모바일용 로고 부제목 크기 축소 */
+            }
+
+            .hashtag-container {
+                width: 90%; /* 가로 여백 확보 */
+                padding: 30px 20px; /* 내부 여백 축소 */
+                gap: 15px; /* 줄 간격 축소 */
+            }
+
+            .row {
+                flex-wrap: wrap; /* 버튼이 화면을 넘어가면 자동으로 다음 줄로 넘김 */
+                gap: 15px; /* 버튼 사이 간격 축소 */
+            }
+
+            .hashtag {
+                font-size: 16px; /* 버튼 글자 크기 축소 */
+                padding: 10px 20px; /* 버튼 내부 여백 축소 */
+            }
         }
     </style>
 </head>
@@ -274,7 +134,7 @@
 
     <div class="logo-box">
         <h1>Pokémon Lover's</h1> 
-        `     <h2>New eXciting Odyssey</h2>
+        <p>New eXciting Odyssey</p>
     </div>
 
     <div class="hashtag-container">
@@ -284,7 +144,7 @@
             <a href="story.html" class="hashtag">#스토리</a>
         </div>
         <div class="row">
-            <a href="catch.html" class="hashtag">#포획</a>
+            <a href="grab.html" class="hashtag">#포획</a>
             <a href="healing.html" class="hashtag">#힐링</a>
             <a href="othergames.html" class="hashtag">#이외 게임들</a>
         </div>
@@ -292,17 +152,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

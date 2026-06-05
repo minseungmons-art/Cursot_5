@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open World - PLNXO</title>
+    <title>Open World - Pokémon</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
             opacity: 1; 
         }
 
-        /* 🌟 이미지 파일 확장자를 모두 최신 상태로 맞췄습니다! */
+        /* 🌟 이미지 파일 설정 */
         .bg-slide.section1 { 
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('arc.jpg'); 
         }
@@ -53,7 +53,6 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('scarlet.png'); 
         }
         .bg-slide.section3 { 
-            /* 🌟 ZA 배경은 보내주신 파일명대로 .webp로 수정했습니다 */
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('ZA.png'); 
         }
 
@@ -128,6 +127,7 @@
             letter-spacing: -1px;
             text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
             z-index: 1;
+            text-align: center;
         }
 
         /* 🌟 기본 박스 디자인 (1번, 3번 섹션용) */
@@ -147,7 +147,7 @@
             z-index: 1;
         }
 
-        /* 🌟 2번째 섹션(스칼렛 바이올렛) 전용 박스 디자인 (첫 번째 사진 참고) */
+        /* 🌟 2번째 섹션(스칼렛 바이올렛) 전용 박스 디자인 */
         #section2 .desc {
             background-color: rgba(80, 80, 80, 0.85); /* 불투명한 짙은 회색 바탕 */
             border-radius: 10px; /* 전체적으로 둥근 사각형 */
@@ -155,15 +155,55 @@
             padding: 40px 60px; /* 위아래 여백을 줘서 넉넉하게 */
             backdrop-filter: none; /* 흐림 효과 제거 */
             box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* 그림자를 더 진하게 */
-            font-size: 16px; /* 글씨 크기 약간 조절 */
+            font-size: 18px; 
             color: white;
         }
-        
-        /* 2번째 섹션의 숫자 색상을 어두운 배경에 맞게 약간 조정 (선택사항) */
+
         #section2 .section-num {
             color: rgba(100, 181, 246, 0.5);
         }
 
+        /* =========================================
+           📱 모바일 반응형 디자인 (화면 너비 768px 이하) 
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            nav {
+                top: 20px;
+                right: 20px;
+            }
+
+            .back-home {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .section-num {
+                font-size: 80px; /* 숫자 크기 축소 */
+                margin-bottom: -20px;
+            }
+
+            .title {
+                font-size: 32px; /* 제목 크기 축소 */
+                margin-bottom: 16px;
+                line-height: 1.2;
+            }
+
+            /* 1번, 3번 섹션 모바일 조정 */
+            .desc {
+                font-size: 15px; /* 본문 폰트 크기 축소 */
+                padding: 25px 20px; /* 좌우 여백 축소 */
+                border-radius: 0 25px 0 25px; /* 모서리 둥글기 비율 조정 */
+                width: 95%; /* 화면에 꽉 차지 않게 여백 확보 */
+            }
+
+            /* 2번 섹션 모바일 조정 */
+            #section2 .desc {
+                font-size: 15px;
+                padding: 25px 20px;
+                border-radius: 10px; 
+                width: 95%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -184,8 +224,7 @@
                 <div class="section-num">01</div>
                 <h2 class="title">레전드 아르세우스</h2>
                 <div class="desc">
-                    포켓몬스터 오픈월드의 첫 번째 혁명.<br>
-                    눈앞에 보이는 모든 산과 바다를 직접 탐험할 수 있는 자유도를 경험해보세요.
+                    과거 히스이지방을 배경으로 기존 공식을 깬 포획과 탐험 중심의 몰입감 높은 플레이를 선보이며 시리즈의 새로운 가능성을 열었습니다. 다만 그래픽 품질과 필드 밀도 등 기술적인 부분에서는 다소 아쉬움이 남습니다.<br>
                 </div>
             </div>
         </div>
@@ -195,8 +234,7 @@
                 <div class="section-num">02</div>
                 <h2 class="title">스칼렛 바이올렛</h2>
                 <div class="desc">
-                    시간과 날씨에 따라 변화하는 생태계.<br>
-                    단순한 몬스터가 아닌, 살아있는 포켓몬들의 숨결을 느낄 수 있는 공간입니다.
+                    오픈월드를 통한 자유로운 탐험과 짜임새 있는 스토리로 훌륭한 몰입감과 재미를 선사합니다. 그러나 프레임 드랍과 버그 등 전반적인 기술적 완성도 문제가 가장 큰 단점으로 꼽히는 작품입니다.<br>
                 </div>
             </div>
         </div>
@@ -206,8 +244,7 @@
                 <div class="section-num">03</div>
                 <h2 class="title">레전ZA</h2>
                 <div class="desc">
-                    정해진 길은 없습니다. 당신이 걷는 모든 발자국이 곧 이야기가 됩니다.<br>
-                    PLNXO가 제안하는 오픈월드 공략과 함께 나만의 여정을 완성하세요.
+                    메가진화와 실시간 전투를 도입해 빠르고 짜릿한 배틀을 선사합니다. 다만 미르시티 중심이라 탐험 범위가 좁고 배경이 단조로운 점은 아쉽습니다.<br>
                 </div>
             </div>
         </div>

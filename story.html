@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORY - Pokémon</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', 'Apple SD Gothic Neo', sans-serif;
+            color: white;
+            background-color: black;
+            
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .background-layers {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; 
+        }
+
+        .bg-slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0; 
+            transition: opacity 1s ease-in-out; 
+        }
+
+        .bg-slide.active {
+            opacity: 1; 
+        }
+
+        /* 🌟 이미지 파일 확장자를 모두 최신 상태로 맞췄습니다! */
+        .bg-slide.section1 { 
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('LEGENDS.jpg'); 
+        }
+        .bg-slide.section2 { 
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('pokopia.jpg'); 
+        }
+
+        nav {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            z-index: 1000;
+        }
+
+        .back-home {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 30px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .back-home:hover {
+            background: white;
+            color: #4a90e2;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .section {
+            min-height: 100vh; 
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .content-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1s ease-out; 
+            position: relative;
+        }
+
+        .content-box.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-num {
+            font-size: 130px;
+            font-weight: 900;
+            line-height: 0.8;
+            color: rgba(74, 144, 226, 0.3); 
+            margin-bottom: -35px; 
+            z-index: 0;
+        }
+
+        .title {
+            font-size: 60px;
+            font-weight: 900;
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+            z-index: 1;
+            text-align: center; /* 텍스트 중앙 정렬 추가 */
+        }
+
+        /* 🌟 기본 박스 디자인 (1번 섹션용) */
+        .desc {
+            font-size: 18px;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.15); 
+            padding: 35px 50px;
+            border-radius: 0 40px 0 40px; 
+            border-left: 5px solid #4a90e2; 
+            backdrop-filter: blur(10px);
+            max-width: 750px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            word-break: keep-all; 
+            z-index: 1;
+        }
+
+        /* 🌟 2번째 섹션 전용 박스 디자인 */
+        #section2 .desc {
+            background-color: rgba(80, 80, 80, 0.85); /* 불투명한 짙은 회색 바탕 */
+            border-radius: 10px; /* 전체적으로 둥근 사각형 */
+            border-left: 3px solid #64b5f6; /* 밝은 파란색 얇은 테두리 */
+            padding: 40px 60px; /* 위아래 여백을 줘서 넉넉하게 */
+            backdrop-filter: none; /* 흐림 효과 제거 */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* 그림자를 더 진하게 */
+            font-size: 18px; 
+            color: white;
+        }
+        
+        /* 2번째 섹션의 숫자 색상을 어두운 배경에 맞게 약간 조정 (선택사항) */
+        #section2 .section-num {
+            color: rgba(100, 181, 246, 0.5);
+        }
+
+        /* =========================================
+           📱 모바일 반응형 디자인 (화면 너비 768px 이하) 
+           ========================================= */
+        @media screen and (max-width: 768px) {
+            nav {
+                top: 20px;
+                right: 20px;
+            }
+
+            .back-home {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .section-num {
+                font-size: 80px; /* 숫자 크기 축소 */
+                margin-bottom: -20px;
+            }
+
+            .title {
+                font-size: 32px; /* 제목 크기 축소 */
+                margin-bottom: 16px;
+                line-height: 1.2;
+            }
+
+            /* 1번 섹션 모바일 조정 */
+            .desc {
+                font-size: 15px; /* 폰트 축소 */
+                padding: 25px 20px; /* 패딩 축소 */
+                border-radius: 0 25px 0 25px; /* 둥글기 비율 축소 */
+                width: 95%; /* 여백 확보 */
+            }
+
+            /* 2번 섹션 모바일 조정 */
+            #section2 .desc {
+                font-size: 15px;
+                padding: 25px 20px;
+                border-radius: 10px; 
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="back-home">BACK TO MAIN</a>
+    </nav>
+
+    <div class="background-layers">
+        <div class="bg-slide section1 active"></div>
+        <div class="bg-slide section2"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <div class="section" id="section1">
+            <div class="content-box show">
+                <div class="section-num">01</div>
+                <h2 class="title">레전드 아르세우스</h2>
+                <div class="desc">
+                    과거 신오지방인 히스이지방을 배경으로 삼아 기존 시리즈와는 다른 신선한 서사를 선보입니다. 플레이어가 직접 조사대원이 되어 최초의 포켓몬 도감을 완성해 나가는 여정이 이야기의 핵심입니다.<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="section2">
+            <div class="content-box">
+                <div class="section-num">02</div>
+                <h2 class="title">포코피아</h2>
+                <div class="desc">
+                    인간으로 변신한 메타몽이 되어 포켓몬들과 교류하고 서식지를 꾸미는 힐링 중심의 슬로 라이프 샌드박스 게임입니다. 배틀이나 경쟁 요소가 적어 다소 심심할 수는 있지만, 《동물의 숲》처럼 느긋하고 따뜻한 생활형 콘텐츠를 선호하신다면 크게 만족할 작품입니다.<br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll('.content-box');
+        window.addEventListener('scroll', checkBoxes);
+        checkBoxes(); 
+
+        function checkBoxes() {
+            const triggerBottom = window.innerHeight * 0.85;
+            boxes.forEach(box => {
+                const boxTop = box.getBoundingClientRect().top;
+                if(boxTop < triggerBottom) {
+                    box.classList.add('show');
+                } else {
+                    box.classList.remove('show');
+                }
+            });
+        }
+
+        const sections = document.querySelectorAll('.section');
+        const bgSlides = document.querySelectorAll('.bg-slide');
+        
+        window.addEventListener('scroll', checkBackgrounds);
+        checkBackgrounds(); 
+
+        function checkBackgrounds() {
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    const sectionId = section.id; 
+                    
+                    bgSlides.forEach(slide => slide.classList.remove('active'));
+                    
+                    const activeBg = document.querySelector(`.bg-slide.${sectionId}`);
+                    if (activeBg) {
+                        activeBg.classList.add('active');
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
