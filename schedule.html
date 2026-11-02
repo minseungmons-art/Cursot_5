@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamSync - 일정 조율</title>
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+    </div>
+
+    <main class="glass-container main-app">
+        <header class="app-header">
+            <div>
+                <h1>TeamSync</h1>
+                <p id="welcome-text">일정 조율 중...</p>
+            </div>
+            <button id="copy-link-btn" class="btn-secondary">🔗 방 코드 복사</button>
+        </header>
+
+        <section class="scheduler-section">
+            <div class="scheduler-controls">
+                <span class="instruction">드래그하여 본인이 가능한 시간을 모두 선택하세요</span>
+                <div class="button-group">
+                    <button id="reset-btn" class="btn-secondary">선택 취소</button>
+                    <button id="confirm-btn" class="btn-primary">일정 확정하기</button>
+                </div>
+            </div>
+
+            <div class="calendar-container">
+                <div class="time-column" id="time-labels"></div>
+                <div class="grid-wrapper">
+                    <div class="day-headers" id="day-headers"></div>
+                    <div class="time-grid" id="time-grid"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="schedule.js" defer></script>
+</body>
+</html>
