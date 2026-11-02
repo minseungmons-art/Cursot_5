@@ -6,17 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const roomId = urlParams.get('room');
 
-    const roomHistory = JSON.parse(localStorage.getItem('teamSync_rooms')) || [];
-    const myRoomData = roomHistory.find(r => r.id === roomId);
+    // 이 방에서 로그인한 내 이름 가져오기
+    const roomSession = JSON.parse(sessionStorage.getItem(`room_${roomId}`));
+    const userName = roomSession ? roomSession.userName : null;
 
-    // 기록이 없으면 이름 설정하러 첫 화면으로 강제 이동
-    if (!roomId || !myRoomData) {
-        alert('이 기기에 등록된 계정이 없습니다. 방에 먼저 입장해주세요.');
+    if (!roomId || !userName) {
+        alert('이 방에 대한 정보가 없습니다. 방 코드와 이름을 다시 입력해주세요.');
         window.location.href = `index.html${roomId ? '?room=' + roomId : ''}`;
         return;
     }
 
-    const userName = myRoomData.name;
     document.getElementById('welcome-text').innerText = `${userName}님의 가능한 시간을 모두 선택해주세요`;
 
     document.getElementById('copy-link-btn').addEventListener('click', () => {
@@ -75,6 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else { cell.classList.remove('selected'); }
     }
 
+    // 오직 이 방의 '내 이름'으로 저장된 일정만 불러옴
     async function loadMySchedules() {
         const { data } = await supabaseClient.from('schedules')
             .select('*').eq('room_id', roomId).eq('user_name', userName);
