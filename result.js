@@ -3,7 +3,8 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 document.addEventListener('DOMContentLoaded', () => {
-    const roomId = sessionStorage.getItem('roomId');
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomId = urlParams.get('room');
 
     if (!roomId) {
         alert('방 정보가 존재하지 않습니다.');
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('back-btn').addEventListener('click', () => {
-        window.location.href = 'schedule.html';
+        window.location.href = `schedule.html?room=${roomId}`;
     });
 
     async function fetchAndRenderResults() {
@@ -22,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeMap = {};
         const allUsers = new Set();
 
-        // 겹치는 시간대 및 참여 유저 정리
         data.forEach(item => {
             const key = `${item.day}요일 ${item.time}`;
             if (!timeMap[key]) { timeMap[key] = new Set(); }
@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
             allUsers.add(item.user_name);
         });
 
-        // 겹치는 인원수(count) 내림차순 정렬
         const sortedTimes = Object.keys(timeMap).map(key => ({
             timeText: key,
             users: Array.from(timeMap[key]),
@@ -40,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('result-container');
         container.innerHTML = '';
 
-        // 현재까지 일정을 제출한 총 인원수 표시
         const totalInfo = document.createElement('div');
         totalInfo.style.marginBottom = '20px';
         totalInfo.style.color = '#fff';
@@ -53,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // 상위 3개 시간대만 결과 카드로 렌더링
         sortedTimes.slice(0, 3).forEach((slot, index) => {
             const card = document.createElement('div');
             card.className = 'result-card';
@@ -75,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchAndRenderResults();
 
-    // 다른 팀원이 폰으로 제출할 경우 결과 화면 실시간 자동 새로고침 (매직 포인트)
     supabaseClient
         .channel(`result_room:${roomId}`)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'schedules', filter: `room_id=eq.${roomId}` }, 

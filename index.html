@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plan X Output - 팀플 시작하기</title>
+    <title>TeamSync - 팀플 시작하기</title>
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -16,8 +16,8 @@
 
     <main class="glass-container auth-container">
         <div class="auth-header">
-            <h1>Plan X Output</h1>
-            <p>완벽한 팀 프로젝트 일정 조율</p>
+            <h1>TeamSync</h1>
+            <p>우아하고 완벽한 팀 프로젝트 일정 조율</p>
         </div>
         
         <div class="auth-panels">
@@ -41,9 +41,16 @@
                 <p>초대 코드와 비밀번호를 입력하세요</p>
                 <input type="text" id="join-code" placeholder="초대 코드 (방 ID)">
                 <input type="password" id="join-pw" placeholder="방 비밀번호">
-                <input type="text" id="join-name" placeholder="내 이름 (예: 홍길동)">
+                <input type="text" id="join-name" placeholder="내 이름 (예: 강민승)">
                 <button id="join-btn" class="btn-primary">입장하기</button>
             </div>
+        </div>
+
+        <!-- 내 참가 기록 패널 (자바스크립트에서 기록이 있을 때만 표시함) -->
+        <div id="history-panel" style="display: none; margin-top: 40px; text-align: left;">
+            <div class="divider" style="width: 100%; height: 1px; margin-bottom: 30px;"></div>
+            <h2 style="font-size: 1.3rem; margin-bottom: 15px;">최근 참여한 방 기록</h2>
+            <div id="history-list" class="history-list"></div>
         </div>
     </main>
 

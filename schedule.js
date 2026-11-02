@@ -3,19 +3,25 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
 document.addEventListener('DOMContentLoaded', () => {
-    const userName = sessionStorage.getItem('userName');
-    const roomId = sessionStorage.getItem('roomId');
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomId = urlParams.get('room');
 
-    if (!userName || !roomId) {
-        alert('잘못된 접근입니다. 첫 화면에서 방에 입장해주세요.');
-        window.location.href = 'index.html';
+    const roomHistory = JSON.parse(localStorage.getItem('teamSync_rooms')) || [];
+    const myRoomData = roomHistory.find(r => r.id === roomId);
+
+    // 기록이 없으면 이름 설정하러 첫 화면으로 강제 이동
+    if (!roomId || !myRoomData) {
+        alert('이 기기에 등록된 계정이 없습니다. 방에 먼저 입장해주세요.');
+        window.location.href = `index.html${roomId ? '?room=' + roomId : ''}`;
         return;
     }
 
+    const userName = myRoomData.name;
     document.getElementById('welcome-text').innerText = `${userName}님의 가능한 시간을 모두 선택해주세요`;
 
     document.getElementById('copy-link-btn').addEventListener('click', () => {
-        navigator.clipboard.writeText(roomId).then(() => alert(`방 코드(${roomId})가 복사되었습니다!`));
+        const inviteLink = `${window.location.origin}${window.location.pathname.replace('schedule.html', 'index.html')}?room=${roomId}`;
+        navigator.clipboard.writeText(inviteLink).then(() => alert('초대 링크가 복사되었습니다!'));
     });
 
     const days = ['월', '화', '수', '목', '금', '토', '일'];
@@ -69,12 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else { cell.classList.remove('selected'); }
     }
 
-    // 다른 사람 일정은 숨기고, 기존에 저장했던 '내' 시간표만 불러와서 표시
     async function loadMySchedules() {
         const { data } = await supabaseClient.from('schedules')
-            .select('*')
-            .eq('room_id', roomId)
-            .eq('user_name', userName);
+            .select('*').eq('room_id', roomId).eq('user_name', userName);
 
         if (data) {
             data.forEach(item => {
@@ -95,10 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cells = document.querySelectorAll('.grid-cell.selected');
         if (cells.length === 0) { alert('시간을 최소 하나 이상 선택해주세요.'); return; }
 
-        // 중복 제출을 막기 위해 기존에 제출한 내 일정은 DB에서 한 번 삭제 후 덮어쓰기
-        await supabaseClient.from('schedules').delete()
-            .eq('room_id', roomId)
-            .eq('user_name', userName);
+        await supabaseClient.from('schedules').delete().eq('room_id', roomId).eq('user_name', userName);
 
         const selectedData = Array.from(cells).map(cell => ({
             room_id: roomId,
@@ -109,9 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const { error } = await supabaseClient.from('schedules').insert(selectedData);
         if (!error) {
-            window.location.href = 'result.html';
-        } else {
-            alert('오류가 발생했습니다.');
-        }
+            window.location.href = `result.html?room=${roomId}`;
+        } else { alert('오류가 발생했습니다.'); }
     });
 });
