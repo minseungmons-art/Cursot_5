@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    document.getElementById('welcome-text').innerText = `${userName}님의 일정을 입력해주세요 (방 코드: ${roomId})`;
+    document.getElementById('welcome-text').innerText = `${userName}님의 가능한 시간을 모두 선택해주세요`;
 
     document.getElementById('copy-link-btn').addEventListener('click', () => {
         navigator.clipboard.writeText(roomId).then(() => alert(`방 코드(${roomId})가 복사되었습니다!`));
@@ -46,20 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
             cell.className = 'grid-cell';
             cell.dataset.day = j;
             cell.dataset.time = i;
-            cell.dataset.users = "";
             
             cell.addEventListener('mousedown', () => {
                 isDragging = true;
-                if (!cell.classList.contains('selected')) {
-                    isSelecting = !cell.classList.contains('new-selection');
-                    toggleSelection(cell);
-                }
+                isSelecting = !cell.classList.contains('selected');
+                toggleSelection(cell);
             });
 
             cell.addEventListener('mouseenter', () => {
-                if (isDragging && !cell.classList.contains('selected')) {
-                    toggleSelection(cell);
-                }
+                if (isDragging) toggleSelection(cell);
             });
 
             timeGridContainer.appendChild(cell);
@@ -70,48 +65,42 @@ document.addEventListener('DOMContentLoaded', () => {
     timeGridContainer.addEventListener('mouseleave', () => { isDragging = false; });
 
     function toggleSelection(cell) {
-        if (isSelecting) { cell.classList.add('new-selection'); } 
-        else { cell.classList.remove('new-selection'); }
+        if (isSelecting) { cell.classList.add('selected'); } 
+        else { cell.classList.remove('selected'); }
     }
 
-    function markCellWithUser(dayStr, timeStr, user) {
-        const dayIndex = days.indexOf(dayStr);
-        const hour = timeStr.split(':')[0];
-        const cell = document.querySelector(`.grid-cell[data-day="${dayIndex}"][data-time="${hour}"]`);
-        
-        if (cell) {
-            cell.classList.add('selected');
-            cell.classList.remove('new-selection');
-            let usersList = cell.dataset.users ? cell.dataset.users.split(',') : [];
-            if (!usersList.includes(user)) {
-                usersList.push(user);
-                cell.dataset.users = usersList.join(',');
-                cell.title = `선택자: ${usersList.join(', ')}`;
-            }
+    // 다른 사람 일정은 숨기고, 기존에 저장했던 '내' 시간표만 불러와서 표시
+    async function loadMySchedules() {
+        const { data } = await supabaseClient.from('schedules')
+            .select('*')
+            .eq('room_id', roomId)
+            .eq('user_name', userName);
+
+        if (data) {
+            data.forEach(item => {
+                const dayIndex = days.indexOf(item.day);
+                const hour = item.time.split(':')[0];
+                const cell = document.querySelector(`.grid-cell[data-day="${dayIndex}"][data-time="${hour}"]`);
+                if (cell) cell.classList.add('selected');
+            });
         }
     }
-
-    async function loadExistingSchedules() {
-        const { data } = await supabaseClient.from('schedules').select('*').eq('room_id', roomId);
-        if (data) { data.forEach(item => markCellWithUser(item.day, item.time, item.user_name)); }
-    }
-    loadExistingSchedules();
-
-    supabaseClient
-        .channel(`room:${roomId}`)
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'schedules', filter: `room_id=eq.${roomId}` }, 
-        payload => { markCellWithUser(payload.new.day, payload.new.time, payload.new.user_name); })
-        .subscribe();
+    loadMySchedules();
 
     document.getElementById('reset-btn').addEventListener('click', () => {
-        document.querySelectorAll('.grid-cell.new-selection').forEach(cell => cell.classList.remove('new-selection'));
+        document.querySelectorAll('.grid-cell.selected').forEach(cell => cell.classList.remove('selected'));
     });
 
     document.getElementById('confirm-btn').addEventListener('click', async () => {
-        const newCells = document.querySelectorAll('.grid-cell.new-selection');
-        if (newCells.length === 0) { alert('시간을 선택해주세요.'); return; }
+        const cells = document.querySelectorAll('.grid-cell.selected');
+        if (cells.length === 0) { alert('시간을 최소 하나 이상 선택해주세요.'); return; }
 
-        const selectedData = Array.from(newCells).map(cell => ({
+        // 중복 제출을 막기 위해 기존에 제출한 내 일정은 DB에서 한 번 삭제 후 덮어쓰기
+        await supabaseClient.from('schedules').delete()
+            .eq('room_id', roomId)
+            .eq('user_name', userName);
+
+        const selectedData = Array.from(cells).map(cell => ({
             room_id: roomId,
             user_name: userName,
             day: days[cell.dataset.day],
