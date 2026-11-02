@@ -2,35 +2,71 @@ const supabaseUrl = 'https://korowqpkgcvldqmhwznw.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imtvcm93cXBrZ2N2bGRxbWh3em53Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NzYxNDAsImV4cCI6MjA5MTA1MjE0MH0.mzKmZpR6yhZH1e2JU0Q9ImRxeOAjXT6eF5dnXDLNIro';
 const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
-// [내 시간표] 클릭 시 비밀번호와 이름을 다시 확인하여 세션을 복구하는 함수
-window.openScheduleWithPassword = async function(roomId, defaultName) {
-    const password = prompt("방 비밀번호를 입력하세요:");
-    if (!password) return;
+// [내 시간표] 클릭 시 비밀번호 모달 -> 이름 모달 순서로 띄우는 함수
+window.openScheduleWithPassword = function(roomId, defaultName) {
+    const pwModal = document.getElementById('password-modal');
+    const pwInput = document.getElementById('modal-pw-input');
+    const pwConfirmBtn = document.getElementById('modal-confirm-btn');
+    const pwCancelBtn = document.getElementById('modal-cancel-btn');
 
-    const { data, error } = await supabaseClient.from('rooms').select('password').eq('id', roomId).single();
-    
-    if (error || !data) {
-        alert('방 정보를 찾을 수 없습니다.');
-        return;
-    }
+    const nameModal = document.getElementById('name-modal');
+    const nameInput = document.getElementById('modal-name-input');
+    const nameConfirmBtn = document.getElementById('name-confirm-btn');
+    const nameCancelBtn = document.getElementById('name-cancel-btn');
 
-    if (data.password !== password) {
-        alert('비밀번호가 일치하지 않습니다!');
-        return;
-    }
+    pwInput.value = '';
+    pwModal.style.display = 'flex';
+    pwInput.focus();
 
-    // 기록에 저장되어 있던 이름을 기본값으로 띄워주어 편리하게 입장
-    const userName = prompt("사용할 이름을 입력해주세요:", defaultName || "");
-    if (!userName || !userName.trim()) {
-        alert('이름을 입력해야 합니다.');
-        return;
-    }
+    // 기존 이벤트 리스너 초기화 (클론 노드 활용)
+    const cleanPwConfirm = pwConfirmBtn.cloneNode(true);
+    pwConfirmBtn.parentNode.replaceChild(cleanPwConfirm, pwConfirmBtn);
+    const cleanPwCancel = pwCancelBtn.cloneNode(true);
+    pwCancelBtn.parentNode.replaceChild(cleanPwCancel, pwCancelBtn);
 
-    // 세션 스토리지에 방별 이름 정보 안전하게 저장
-    sessionStorage.setItem(`room_${roomId}`, JSON.stringify({ userName: userName.trim() }));
+    cleanPwCancel.addEventListener('click', () => { pwModal.style.display = 'none'; });
 
-    // 일정 화면으로 이동
-    window.location.href = `schedule.html?room=${roomId}`;
+    cleanPwConfirm.addEventListener('click', async () => {
+        const password = pwInput.value;
+        if (!password) { alert('비밀번호를 입력해주세요.'); return; }
+
+        const { data, error } = await supabaseClient.from('rooms').select('password').eq('id', roomId).single();
+        
+        if (error || !data) {
+            alert('방 정보를 찾을 수 없습니다.');
+            return;
+        }
+
+        if (data.password !== password) {
+            alert('비밀번호가 일치하지 않습니다!');
+            return;
+        }
+
+        // 비밀번호가 맞으면 비밀번호 창은 닫고, 이름 입력 모달 오픈
+        pwModal.style.display = 'none';
+        nameInput.value = defaultName || '';
+        nameModal.style.display = 'flex';
+        nameInput.focus();
+
+        const cleanNameConfirm = nameConfirmBtn.cloneNode(true);
+        nameConfirmBtn.parentNode.replaceChild(cleanNameConfirm, nameConfirmBtn);
+        const cleanNameCancel = nameCancelBtn.cloneNode(true);
+        nameCancelBtn.parentNode.replaceChild(cleanNameCancel, nameCancelBtn);
+
+        cleanNameCancel.addEventListener('click', () => { nameModal.style.display = 'none'; });
+
+        cleanNameConfirm.addEventListener('click', () => {
+            const userName = nameInput.value.trim();
+            if (!userName) {
+                alert('이름을 입력해야 합니다.');
+                return;
+            }
+
+            sessionStorage.setItem(`room_${roomId}`, JSON.stringify({ userName: userName }));
+            nameModal.style.display = 'none';
+            window.location.href = `schedule.html?room=${roomId}`;
+        });
+    });
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('join-code').value = inviteCode;
     }
 
-    // 최근 참여한 방 기록 렌더링
     let globalHistory = JSON.parse(localStorage.getItem('pxo_global_history')) || [];
     if (globalHistory.length > 0) {
         const historyPanel = document.getElementById('history-panel');

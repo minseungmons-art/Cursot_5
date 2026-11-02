@@ -136,3 +136,12 @@ button { padding: 10px 20px; border-radius: 12px; font-size: 0.9rem; font-weight
     .result-card { flex-direction: column; align-items: flex-start; gap: 15px; padding: 20px; }
     .result-users { justify-content: flex-start; max-width: 100%; }
 }
+
+/* 커스텀 비밀번호 모달 스타일 */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 1000; display: flex; justify-content: center; align-items: center; }
+.modal-box { width: 90%; max-width: 400px; padding: 30px; text-align: left; display: flex; flex-direction: column; gap: 15px; }
+.modal-box h2 { font-size: 1.4rem; color: #fff; }
+.modal-box p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 5px; }
+.modal-box input { width: 100%; padding: 12px 15px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.05); color: white; font-size: 0.95ln; outline: none; }
+.modal-buttons { display: flex; gap: 10px; margin-top: 10px; }
+.modal-buttons button { flex: 1; }
